@@ -3,12 +3,12 @@ Our final project for advanced computer programming at SILS
 
 **Requirements**
 - [ ] Object-Oriented  
-- [ ] Makeuse of hierarchy, polymorphismand encapsulation  
-- [ ] Overrideoperators  
-- [ ] Be split in differentpackages  
-- [ ] Makeuse of CSV filesfor loadingdata  
-- [ ] Makeuse of text filesfor writingdata  
-- [ ] Featurealsouserinput  
+- [ ] Make use of hierarchy, polymorphism and encapsulation  
+- [ ] Override operators  
+- [ ] Be split in different packages  
+- [ ] Make use of CSV files for loading data  
+- [ ] Make use of text files for writing data  
+- [ ] Feature also user input  
 - [ ] Use exceptions  
 - [ ] Do something useful/nice (similarly to the horoscope bot or the song sorting programs developed in class)  
 
