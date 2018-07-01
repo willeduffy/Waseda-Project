@@ -2,6 +2,7 @@
 Our final project for advanced computer programming at SILS
 
 **Requirements**
+
 - [ ] Object-Oriented  
 - [ ] Make use of hierarchy, polymorphism and encapsulation  
 - [ ] Override operators  
