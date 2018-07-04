@@ -20,4 +20,4 @@ Our final project for advanced computer programming at SILS
 **Contributors**
 * Dustyn Buchanan August
 * Will Duffy
-
+* Kento Nambara
