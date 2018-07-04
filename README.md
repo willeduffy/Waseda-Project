@@ -17,6 +17,13 @@ Our final project for advanced computer programming at SILS
 * Iterate through emails, storing certain values in a CSV
 * Analyze the data in some way
 
+**To Do**
+- [ ] Write / modify / find method to read all (or many) emails in a given email account
+- [ ] Create Message class
+- [ ] Create subclass of Message class (Message can be very generic)
+- [ ] Export message objects' data to CSV
+- [ ] Use CSV to plot data (or otherwise save to a text file somehow)
+
 **Resources**
 * [GitHub repository about Gmail API and Python](https://github.com/abhishekchhibber/Gmail-Api-through-Python/blob/master/gmail_read.py "Gmail-Api-through-Python")
 
