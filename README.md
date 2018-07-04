@@ -17,6 +17,9 @@ Our final project for advanced computer programming at SILS
 * Iterate through emails, storing certain values in a CSV
 * Analyze the data in some way
 
+**Resources**
+[GitHub repository about Gmail API and Python](file:///D:/Documents/Classes/Junior/Waseda/Programming/Waseda%20Project/Gmail-Api-through-Python_gmail_read.py%20at%20master%20%C2%B7%20abhishekchhibber_Gmail-Api-through-Python.html "Gmail-Api-through-Python")
+
 **Contributors**
 * Dustyn Buchanan August
 * Will Duffy
