@@ -5,11 +5,11 @@ Our final project for advanced computer programming at SILS
 - [ ] Object-Oriented  
 - [ ] Make use of hierarchy, polymorphism and encapsulation  
 - [ ] Override operators  
-- [ ] Be split in different packages  
-- [ ] Make use of CSV files for loading data  
+- [ ] ~~Be split in different packages~~ 
+- [ ] ~~Make use of CSV files for loading data~~
 - [ ] Make use of text files for writing data  
-- [ ] Feature also user input  
-- [ ] Use exceptions  
+- [ ] ~~Feature also user input~~  
+- [ ] ~~Use exceptions~~  
 - [ ] Do something useful/nice (similarly to the horoscope bot or the song sorting programs developed in class) 
 - [ ] **Optional**ː use threads to do *somethinɡ*
 
