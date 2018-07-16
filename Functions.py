@@ -1,5 +1,5 @@
 from __future__ import print_function
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import re
@@ -11,6 +11,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import collections
+
+import CustomMessages
 
 
 def setup():
@@ -59,8 +61,17 @@ def getdata(gmail):
 			else:
 				pass
 
+
 		temp_dict['Snippet'] = message['snippet'] # fetching message snippet
+		
+
+		newMessage = CustomMessages.GMessage(temp_dict)
+
+		# print()
+		# print(newMessage)
+
 		final_list.append(temp_dict) # This will create a dictonary item in the final list
+
 	return final_list
 
 

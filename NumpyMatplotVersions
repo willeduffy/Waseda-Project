@@ -1,0 +1,6 @@
+import numpy
+import matplotlib as mpl
+print("Matplot version is: ")
+print(mpl.__version__)
+print("\nNumpy version is: ")
+print (numpy.__version__)
