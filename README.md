@@ -5,11 +5,11 @@ Our final project for advanced computer programming at SILS
 - [ ] Object-Oriented  
 - [ ] Make use of hierarchy, polymorphism and encapsulation  
 - [ ] Override operators  
-- [ ] ~~Be split in different packages~~ 
-- [ ] ~~Make use of CSV files for loading data~~
+- [X] Be split in different packages
+- [X] Make use of CSV files for loading data
 - [ ] Make use of text files for writing data  
-- [ ] ~~Feature also user input~~  
-- [ ] ~~Use exceptions~~  
+- [X] Feature also user input
+- [X] Use exceptions
 - [ ] Do something useful/nice (similarly to the horoscope bot or the song sorting programs developed in class) 
 - [ ] **Optional**ː use threads to do *somethinɡ*
 
@@ -19,11 +19,11 @@ Our final project for advanced computer programming at SILS
 * Analyze the data in some way
 
 **To Do**
-- [ ] ̩~~Write / modify / find method to read all (or many) emails in a given email account~~
+- [X] ̩Write / modify / find method to read all (or many) emails in a given email account~~
 - [ ] Create Message class
 - [ ] Create subclass of Message class (Message can be very generic)
 - [ ] Export message objects' data to CSV
-- [ ] ~~Use CSV to plot data (or otherwise save to a text file somehow)~~
+- [X] Use CSV to plot data (or otherwise save to a text file somehow)
 - [ ] save text file (can be anythinɡ)
 - [ ] fix ɡraph display issues and export ɡraph
 
