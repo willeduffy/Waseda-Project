@@ -69,20 +69,24 @@ def getdata(gmail):
 
 		# print()
 		# print(newMessage)
-
-		final_list.append(temp_dict) # This will create a dictonary item in the final list
+		final_list.append(newMessage) # This will create a dictonary item in the final list
+		
+		# final_list.append(temp_dict) # This will create a dictonary item in the final list
 
 	return final_list
 
 
 def create_csv(data):
+
+ 
 	#Creates CSV file and exports the values as .csv
 	with open('MessageCSV.csv', 'w', encoding='utf-8', newline = '') as csvfile: 
 	    fieldnames = ['Sender','Subject','Date','Snippet']
 	    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ',')
 	    writer.writeheader()
 	    for val in data:
-	    	writer.writerow(val)
+	    	# print(val)
+	    	writer.writerow(val.getDictionary())
 
 def graph_total():
 	#ignores enconding errors, for now

@@ -22,19 +22,21 @@ class Message(object):
 		# for key, value in kwargs.iteritems():
 		# 	setattr(self, key, value)
 
-	def __str__(self):
-		return "From Class: Message\n     Subject: " + str(self.sender) +"\n     Sender: " + str(self.subject)
+	# def __str__(self):
+	# 	return "From Class: Message\n     Subject: " + str(self.sender) +"\n     Sender: " + str(self.subject)
+
 
 
 		
-
-
-
-## GMessage's are special because they have a date... wow.
 class GMessage(Message):
 	def __init__(self, messageDictionary):
 		super().__init__(messageDictionary)
 		self.date = messageDictionary['Date']
+		self.messageDictionary = messageDictionary
 
-	def __str__(self):
-		return super().__str__() + "\nFrom Class: GMessage\n     Date: " + str(self.date)
+
+	def getDictionary(self):
+		return self.messageDictionary
+
+	# def __str__(self):
+	# 	return super().__str__() + "\nFrom Class: GMessage\n     Date: " + str(self.date)
