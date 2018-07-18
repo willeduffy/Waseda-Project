@@ -1,5 +1,5 @@
 from __future__ import print_function
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import re
@@ -12,6 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import collections
+
+import CustomMessages
 
 
 def setup():
@@ -60,19 +62,32 @@ def getdata(gmail):
 			else:
 				pass
 
+
 		temp_dict['Snippet'] = message['snippet'] # fetching message snippet
-		final_list.append(temp_dict) # This will create a dictonary item in the final list
+		
+
+		newMessage = CustomMessages.GMessage(temp_dict)
+
+		# print()
+		# print(newMessage)
+		final_list.append(newMessage) # This will create a dictonary item in the final list
+		
+		# final_list.append(temp_dict) # This will create a dictonary item in the final list
+
 	return final_list
 
 
 def create_csv(data):
+
+ 
 	#Creates CSV file and exports the values as .csv
 	with open('MessageCSV.csv', 'w', encoding='utf-8', newline = '') as csvfile: 
 	    fieldnames = ['Sender','Subject','Date','Snippet']
 	    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ',')
 	    writer.writeheader()
 	    for val in data:
-	    	writer.writerow(val)
+	    	print(val)
+	    	writer.writerow(val.getDictionary())
 
 def graph_total():
         #ignores enconding errors, for now

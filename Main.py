@@ -5,6 +5,12 @@ class QuitProgram(Exception): pass
 while True:
 	gmail_account = Functions.setup()
 	gmail_data = Functions.getdata(gmail_account)
+
+	# print(gmail_data)
+
+	# for data in gmail_data:
+	# 	print(data)
+	
 	logged_in = True
 	while logged_in:
 		try: 
