@@ -85,7 +85,7 @@ def create_csv(data):
 	    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ',')
 	    writer.writeheader()
 	    for val in data:
-	    	# print(val)
+	    	print(val)
 	    	writer.writerow(val.getDictionary())
 
 def graph_total():
