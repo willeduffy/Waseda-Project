@@ -23,7 +23,7 @@ Our final project for advanced computer programming at SILS
 - [X] Create Message class
 - [X] Create subclass of Message class (Message can be very generic)
 - [X] Use CSV to plot data (or otherwise save to a text file somehow)
-- [ ] Save text file (can be anythinɡ)
+- [ ] Save text file - Save captions from graph to text file
 - [ ] Fix ɡraph display
 
 **Resources**
