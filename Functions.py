@@ -128,7 +128,25 @@ def graph_total():
 
 
 
+# User is the email address entered
+# data is the list of GMessage objects
+def printMessages(user, data):
 
+	print("User: ")
+	print(user)
+
+	# print("Data:" )
+	# print(data)
+	if user == "total":
+		for email in data:
+			print(email)
+	
+	# Need to parse email from between the < >
+	else:
+		for email in data:
+			print(email.getSender())
+			if email.getSender() == user:
+				print(email)
 
 
 
