@@ -14,7 +14,12 @@ while True:
 	logged_in = True
 	while logged_in:
 		try: 
-			cmd = input("\nPlease enter a command:\n  CSV: to create csv of gmail data\n  COUNT: count emails\n LOGOUT: to logout\n GRAPH: to generate graph\n PRINT: to print emails\n\n")
+			cmd = input("\nPlease enter a command:\n"
+                                    "CSV: to create csv of gmail data\n"
+                                    "COUNT: count emails\n"
+                                    "PRINT: to print emails\n"
+                                    "GRAPH: to generate graph\n"
+                                    "LOGOUT: to logout\n\n")
 			if cmd.lower() == "csv":
 				Functions.create_csv(gmail_data)
 			elif cmd.lower() == "graph":
