@@ -12,9 +12,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import collections
-
 import CustomMessages
-
+import sys
+import queue
+import threading
 
 def setup():
 	# Setup the Gmail API
@@ -27,7 +28,7 @@ def setup():
 	service = build('gmail', 'v1', http=creds.authorize(Http()))
 	return service
 
-def getdata(gmail):
+def getdata(gmail, out_queue):
 	# Call the Gmail API
 	# all_messages is a dictionary with one key/value pair -- "messages": 
 	# [list of dictionaries containing, threadId, and their corresponding values]
@@ -74,7 +75,7 @@ def getdata(gmail):
 		
 		# final_list.append(temp_dict) # This will create a dictonary item in the final list
 
-	return final_list
+	out_queue.put(final_list)
 
 
 def create_csv(data):
@@ -149,9 +150,6 @@ def printMessages(user, data):
 				print(email)
 
 
-
-
-
 def count(name,data):
 	num = 0
 	if name == "total":
@@ -164,7 +162,28 @@ def count(name,data):
 				num += 1
 	return num
 
+
 def logout():
 	os.remove("credentials.json")
 
+
+def loading(other):
+	# while True:
+	# 	if not os.path.isfile("credentials.json"):
+	# 		continue
+	# 	else:
+	t = time.time()
+	i = 1
+	while other.isAlive():
+		print(" Loading" + "." * i, end="\r")
+		time.sleep(1)
+		i += 1
+		print(" "*8, end="\r")
+	print(" "*100,end="\r")
+	print("Loaded data in",time.time()-t,end="")
+	print(" seconds")
+
+
+def help():
+	print("\nCSV: to create csv of gmail data\nCOUNT: count emails\nLOGOUT: to logout\nGRAPH: to generate graph\nPRINT: to print emails\nQUIT: to quit program")
 
