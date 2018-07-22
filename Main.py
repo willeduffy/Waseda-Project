@@ -6,20 +6,15 @@ while True:
 	gmail_account = Functions.setup()
 	gmail_data = Functions.getdata(gmail_account)
 
-	# print(gmail_data)
-
-	# for data in gmail_data:
-	# 	print(data)
-	
 	logged_in = True
 	while logged_in:
 		try: 
 			cmd = input("\nPlease enter a command:\n"
-                                    "CSV: to create csv of gmail data\n"
-                                    "COUNT: count emails\n"
-                                    "PRINT: to print emails\n"
-                                    "GRAPH: to generate graph\n"
-                                    "LOGOUT: to logout\n\n")
+				    "CSV: to create csv of gmail data\n"
+				    "COUNT: count emails\n"
+				    "PRINT: to print emails\n"
+				    "GRAPH: to generate graph\n"
+				    "LOGOUT: to logout\n\n")
 			if cmd.lower() == "csv":
 				Functions.create_csv(gmail_data)
 			elif cmd.lower() == "graph":
@@ -38,6 +33,9 @@ while True:
 				raise QuitProgram
 			else:
 				print("Please enter a valid command.")
+                #handles case where user tries to show graph before making CSV
+		except FileNotFoundError:
+			print("You have to create a CSV before making a graph.")
 		except QuitProgram:
 			break
 	ans = input("Would you like to login? y/n")
