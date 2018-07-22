@@ -1,5 +1,5 @@
 from __future__ import print_function
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import re
@@ -10,8 +10,13 @@ import csv
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
 import collections
 
+import CustomMessages
+import sys
+import queue
+import threading
 
 def setup():
 	# Setup the Gmail API
@@ -24,7 +29,7 @@ def setup():
 	service = build('gmail', 'v1', http=creds.authorize(Http()))
 	return service
 
-def getdata(gmail):
+def getdata(gmail, out_queue):
 	# Call the Gmail API
 	# all_messages is a dictionary with one key/value pair -- "messages": 
 	# [list of dictionaries containing, threadId, and their corresponding values]
@@ -59,48 +64,93 @@ def getdata(gmail):
 			else:
 				pass
 
+
 		temp_dict['Snippet'] = message['snippet'] # fetching message snippet
-		final_list.append(temp_dict) # This will create a dictonary item in the final list
-	return final_list
+		
+
+		newMessage = CustomMessages.GMessage(temp_dict)
+
+		# print()
+		# print(newMessage)
+		final_list.append(newMessage) # This will create a dictonary item in the final list
+		
+		# final_list.append(temp_dict) # This will create a dictonary item in the final list
+
+	out_queue.put(final_list)
 
 
 def create_csv(data):
+
+ 
 	#Creates CSV file and exports the values as .csv
 	with open('MessageCSV.csv', 'w', encoding='utf-8', newline = '') as csvfile: 
 	    fieldnames = ['Sender','Subject','Date','Snippet']
 	    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ',')
 	    writer.writeheader()
 	    for val in data:
-	    	writer.writerow(val)
+	    	print(val)
+	    	writer.writerow(val.getDictionary())
 
 def graph_total():
-	#ignores enconding errors, for now
-	CSVfile = open("MessageCSV.csv",errors="ignore")
-	CSVfile.readline() #skips first line of csv
+        #ignores enconding errors, for now
+        CSVfile = open("MessageCSV.csv", errors='ignore')
+        CSVfile.readline() #skips first line of csv
 
-	sendersList = []
-	for line in CSVfile:
-	    items = line.strip().split(",")
-	    sender = str(items[0])
-	    sendersList.append(sender)
+        sendersList = []
+        for line in CSVfile:
+            items = line.strip().split(",")
+            sender = str(items[0])
 
-	#Uses the collections library to make a Counter object -- similar to a dictionary
-	frequencyCounter = collections.Counter(sendersList)
-	#Get lists of the keys and values of the dictionary
-	#Order?
-	senders = list(frequencyCounter.keys())
-	frequency = list(frequencyCounter.values())
-	fig = plt.figure(1,figsize=(18,5))  #Numbers in parentheses determine the dimensions of the plot
-	ax1=fig.add_subplot(111)            #11 Means make a grid 1 plot box wide by 1 box tall.  
-	                                    #The final 1 means let ax1 be the first plot box.
-	#Generates a list [0, len(senders)-1] counting by 1
-	x_pos = np.arange(len(senders))
-	plt.bar(x_pos, frequency, align='center', alpha=0.5)
-	#places each item of senders at x position [0, len(semders)-1]
-	plt.xticks(x_pos, senders)
-	plt.ylabel('Number of emails')
-	plt.title('Emails received from specific senders')
-	plt.show()
+            sendersList.append(sender)
+
+        #Uses the collections library to make a Counter object -- similar to a dictionary
+        frequencyCounter = collections.Counter(sendersList)
+
+        #Get lists of the keys and values of the dictionary
+        #Order?
+        senders = list(frequencyCounter.keys())
+        frequency = list(frequencyCounter.values())
+            
+        fig1, ax1 = plt.subplots()
+
+        ax1.pie(frequency, labels=senders, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
+
+        #saves pie chart as .png
+        plt.savefig("testimage.png")
+
+        #draw white circle to make it look nice
+        centre_circle = plt.Circle((0,0),0.70,fc='white')
+        fig = plt.gcf()
+        fig.gca().add_artist(centre_circle)
+
+        # Equal aspect ratio ensures that pie is drawn as a circle
+        ax1.axis('equal')  
+        plt.tight_layout()
+        plt.show()
+
+
+
+# User is the email address entered
+# data is the list of GMessage objects
+def printMessages(user, data):
+
+	print("User: ")
+	print(user)
+
+	# print("Data:" )
+	# print(data)
+	if user == "total":
+		for email in data:
+			print(email)
+	
+	# Need to parse email from between the < >
+	else:
+		for email in data:
+			print(email.getSender())
+			if email.getSender() == user:
+				print(email)
+
+
 
 
 
@@ -119,4 +169,16 @@ def count(name,data):
 def logout():
 	os.remove("credentials.json")
 
+def loadbar(other):
+	# while True:
+	# 	if not os.path.isfile("credentials.json"):
+	# 		continue
+	# 	else:
+	t = time.time()
+	i = 1
+	while other.isAlive():
+		print("Loading" + "." * i, end="\r")
+		time.sleep(1)
+		i += 1
+	print("Loaded data in",time.time()-t)
 
