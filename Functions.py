@@ -27,6 +27,8 @@ def setup():
 	service = build('gmail', 'v1', http=creds.authorize(Http()))
 	return service
 
+
+
 def getdata(gmail, out_queue):
 	# Call the Gmail API
 	# all_messages is a dictionary with one key/value pair -- "messages": 
@@ -200,6 +202,11 @@ def loading(other):
 		time.sleep(1)
 		i += 1
 		print(" "*8, end="\r")
+
+
+		if i > 3:
+			i=0
+			print(" Loading" + " " * 10, end="\r")
 	print(" "*100,end="\r")
 	print("Loaded data in",time.time()-t,end="")
 	print(" seconds")
