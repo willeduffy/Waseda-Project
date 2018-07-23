@@ -10,7 +10,6 @@ import csv
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
 import collections
 import CustomMessages
 import sys
@@ -77,58 +76,78 @@ def getdata(gmail, out_queue):
 
 	out_queue.put(final_list)
 
-
+#by Will
+#data will be the list returned by the getdata(gmail) function
 def create_csv(data):
 
  
-	#Creates CSV file and exports the values as .csv
+	#creates CSV file and exports the values as .csv
+        #utilizes CSV library
 	with open('MessageCSV.csv', 'w', encoding='utf-8', newline = '') as csvfile: 
 	    fieldnames = ['Sender','Subject','Date','Snippet']
 	    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ',')
 	    writer.writeheader()
 	    for val in data:
-	    	print(val)
 	    	writer.writerow(val.getDictionary())
 
+#by Will
 def graph_total():
-        #ignores enconding errors, for now
+        #ignores enconding errors
         CSVfile = open("MessageCSV.csv", errors='ignore')
         CSVfile.readline() #skips first line of csv
 
+        #sendersList will become list of senders' email addresses
         sendersList = []
+        #gets data right from CSV
         for line in CSVfile:
             items = line.strip().split(",")
             sender = str(items[0])
 
             sendersList.append(sender)
 
-        #Uses the collections library to make a Counter object -- similar to a dictionary
+        #uses the collections library to make a Counter object -- similar to a dictionary
         frequencyCounter = collections.Counter(sendersList)
 
-        #Get lists of the keys and values of the dictionary
-        #Order?
+        #get lists of the keys and values of the dictionary
         senders = list(frequencyCounter.keys())
         frequency = list(frequencyCounter.values())
             
         fig1, ax1 = plt.subplots()
 
-        ax1.pie(frequency, labels=senders, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
+        #generates pie chart using matplotlib
+        #doesn't show labels on pie wedges anymore
+        ax1.pie(frequency, autopct='%1.1f%%', startangle=90, shadow = False, pctdistance=0.85)
 
-        #saves pie chart as .png
-        plt.savefig("testimage.png")
-
-        #draw white circle to make it look nice
+        #draws white circle at the center to make it look nice
         centre_circle = plt.Circle((0,0),0.70,fc='white')
         fig = plt.gcf()
         fig.gca().add_artist(centre_circle)
 
-        # Equal aspect ratio ensures that pie is drawn as a circle
+        #equal aspect ratio ensures that pie is drawn as a circle
         ax1.axis('equal')  
         plt.tight_layout()
+
+        #saves pie chart as .png
+        plt.savefig("MessagesGraph.png")
+
+        #generates key for pie chart -- this makes it easier to see a lot of different senders
+        #currently can't get key to display nicely in saved .png -- will try to fix later
+        patches, texts = plt.pie(frequency, shadow=False, startangle=90)
+        plt.legend(patches, senders, loc="best")
+        
         plt.show()
 
+        #saves something to a text file
+        #not useful right now -- will come back later
+        graphText = open("GraphText.txt", "w")
+        for i in senders:
+                for q in frequency:
+                        graphText.write(i +": " + str(q))
+        graphText.close()
+        
 
 
+# By Dustyn and Will
 # User is the email address entered
 # data is the list of GMessage objects
 def printMessages(user, data):
@@ -150,6 +169,8 @@ def printMessages(user, data):
 				print(email)
 
 
+
+# Count does not work for specific email address as of 7/18 
 def count(name,data):
 	num = 0
 	if name == "total":
@@ -185,5 +206,5 @@ def loading(other):
 
 
 def help():
-	print("\nCSV: to create csv of gmail data\nCOUNT: count emails\nLOGOUT: to logout\nGRAPH: to generate graph\nPRINT: to print emails\nQUIT: to quit program")
+	print("\nCSV: to create csv of gmail data\nCOUNT:count emails\nLOGOUT: to logout\nGRAPH: to generate graph\nPRINT: to print emails\nQUIT: to quit program")
 

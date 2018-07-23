@@ -11,6 +11,10 @@ class UnknownCommand(Exception):
 
 while True:
 
+	#gmail_account = Functions.setup()
+	#gmail_data = Functions.getdata(gmail_account)
+
+
 	gmail_account = Functions.setup()
 	my_queue = queue.Queue()
 	t2 = threading.Thread(target=Functions.getdata, args=(gmail_account,my_queue))
@@ -20,13 +24,16 @@ while True:
 	t2.join()
 	t1.join()
 	#gmail_data = Functions.getdata(gmail_account)
-	logged_in = True
+	
+  logged_in = True
 	gmail_data = my_queue.get()
 	Functions.help()
 	while logged_in:
 		try: 
+
 			cmd = input("\nPlease enter a command: ")
-			if cmd.lower() == "csv":
+
+      if cmd.lower() == "csv":
 				Functions.create_csv(gmail_data)
 			elif cmd.lower() == "graph":
 				Functions.graph_total()
@@ -45,7 +52,10 @@ while True:
 			elif cmd.lower() == "help":
 				Functions.help()
 			else:
-				raise UnknownCommand("Invalid command '" + cmd +"'; type 'help' for commands")
+        raise UnknownCommand("Invalid command '" + cmd +"'; type 'help' for commands")
+        
+		except FileNotFoundError:
+			print("You have to create a CSV before making a graph.")
 		except UnknownCommand as e:
 			print(e.msg)
 		except QuitProgram:
