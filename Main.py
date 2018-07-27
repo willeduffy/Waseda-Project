@@ -30,7 +30,7 @@ while True:
         Functions.help()
         while logged_in:
                 try: 
-                        cmd = input("\nPlease enter a command: ")
+                        cmd = input("\nPlease enter a command:\n(or type 'help' for list of commands)\n")
                         if cmd.lower() == "csv":
                                 Functions.create_csv(gmail_data)
                         elif cmd.lower() == "graph":

@@ -1,27 +1,27 @@
 class Message(object):
 	def __init__(self, messageDictionary):
-		self.subject = messageDictionary['Subject']
-		self.dateRecieved = messageDictionary['Date']
-		self.sender = messageDictionary['Sender']
+		self._subject = messageDictionary['Subject']
+		self._dateRecieved = messageDictionary['Date']
+		self._sender = messageDictionary['Sender']
 
 	# Override the str 
 	def __str__(self):
-		return "\n     Sender: " + str(self.sender) +"\n     Subject: " + str(self.subject)
+		return "\n     Sender: " + str(self._sender) +"\n     Subject: " + str(self._subject)
 
 
 class GMessage(Message):
 	def __init__(self, messageDictionary):
 		super().__init__(messageDictionary)
-		self.date = messageDictionary['Date']
-		self.messageDictionary = messageDictionary
+		self._date = messageDictionary['Date']
+		self._messageDictionary = messageDictionary
 
 	def getDictionary(self):
-		return self.messageDictionary
+		return self._messageDictionary
 
 	# Call
 	def __str__(self):
-		return super().__str__() + "\n     Date: " + str(self.date) + "\n"
+		return super().__str__() + "\n     Date: " + str(self._date) + "\n"
 
 	def getSender(self):
-		return self.sender
+		return self._sender
 		
